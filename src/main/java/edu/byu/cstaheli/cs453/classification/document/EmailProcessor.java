@@ -1,6 +1,5 @@
 package edu.byu.cstaheli.cs453.classification.document;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,7 +10,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 /**
- * This class processes and sanitizes emails.
+ * This class processes and sanitizes emails. This doesn't remove stopwords. This must be done manually.
  */
 public class EmailProcessor
 {

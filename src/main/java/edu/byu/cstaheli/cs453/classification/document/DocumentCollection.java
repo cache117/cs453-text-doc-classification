@@ -1,6 +1,7 @@
 package edu.byu.cstaheli.cs453.classification.document;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +47,16 @@ public class DocumentCollection
     }
 
     /**
+     * Adds the given documents to the collection.
+     *
+     * @param c the documents to add.
+     */
+    public void addAll(Collection<? extends Document> c)
+    {
+        documents.addAll(c);
+    }
+
+    /**
      * Shuffles the documents randomly. This is used to ensure a different training and test set are obtained.
      */
     public void shuffle()
@@ -64,7 +75,8 @@ public class DocumentCollection
     }
 
     /**
-     * Gets the training set from the documents using a N-cross fold validation strategy.
+     * Gets the training set from the documents using a N-cross fold validation strategy. This will contain all of the
+     * documents that are not part of the Nth fold.
      *
      * @param foldIteration which N the algorithm is currently at.
      * @return the training set from the documents.
@@ -79,7 +91,8 @@ public class DocumentCollection
     }
 
     /**
-     * Gets the test set from the documents using a N-cross fold validation strategy.
+     * Gets the test set from the documents using a N-cross fold validation strategy. This will contain all of the
+     * documents that are part of the Nth fold.
      *
      * @param foldIteration which N the algorithm is currently at.
      * @return the test set from the documents.
