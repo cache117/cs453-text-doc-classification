@@ -46,11 +46,19 @@ class ProbabilityTrainerTest
 
         probability = wordProbabilities.getProbability("Athens", "No");
         assertEquals(2d / 31d, probability);
+
+        probability = wordProbabilities.getProbability("France", "Yes");
+        assertEquals(1d / 22d, probability);
     }
 
     @Test
     void computeClassProbabilities()
     {
+        ClassProbabilities classProbabilities = probabilityTrainer.computeClassProbabilities(trainingSet);
+        double probability = classProbabilities.getProbability("Yes");
+        assertEquals(1d / 2d, probability);
+        probability = classProbabilities.getProbability("No");
+        assertEquals(1d / 2d, probability);
     }
 
     @Test
