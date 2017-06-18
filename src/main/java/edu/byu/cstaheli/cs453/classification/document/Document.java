@@ -1,5 +1,6 @@
 package edu.byu.cstaheli.cs453.classification.document;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -42,5 +43,10 @@ public class Document
     public String toString()
     {
         return String.format("Document %s : %s", documentId, outputClass);
+    }
+
+    public int getNumberOfDistinctWords()
+    {
+        return new HashSet<>(words).size();
     }
 }

@@ -105,4 +105,22 @@ public class DocumentCollection
         int end = (foldIteration + 1) * size() / folds;
         return new ArrayList<>(documents.subList(begin, end));
     }
+
+    public int getFolds()
+    {
+        return folds;
+    }
+
+    public int getNumberOfDistinctWords()
+    {
+        return getNumberOfDistinctWords(documents);
+    }
+
+    public static int getNumberOfDistinctWords(List<Document> documents)
+    {
+        return documents
+                .stream()
+                .mapToInt(Document::getNumberOfDistinctWords)
+                .sum();
+    }
 }

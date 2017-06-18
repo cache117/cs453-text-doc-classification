@@ -1,8 +1,9 @@
-package edu.byu.cstaheli.cs453.classification.mnb;
+package edu.byu.cstaheli.cs453.classification.mnb.classification;
 
 import edu.byu.cstaheli.cs453.classification.document.Document;
-import edu.byu.cstaheli.cs453.classification.set.dc.DcTrainingSet;
+import edu.byu.cstaheli.cs453.classification.mnb.probability.MultinomialNaiveBayesProbability;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,7 +22,7 @@ import java.util.Set;
  * (<i>test_set</i>, respectively), which includes the e multinomial representation of each document in the
  * <i>DC_training</i> (<i>DC_test</i>, respectively) set should be created. On the other hand, if <i>feature
  * selection</i> is applied, then the documents in the <i>DC_training</i> set should first be used to determine the
- * <code>selectedFeatures</code> (as defined in {@link MultinomialNaiveBayesClassification#featureSelection(DcTrainingSet, int)}.
+ * <code>selectedFeatures</code> (as defined in {@link MultinomialNaiveBayesClassification#featureSelection(List, int)}.
  * Hereafter, <i>training_set</i> (<i>test_set</i>, respectively), which consists of the multinomial representation of
  * each document in the <i>DC_training</i> (<i>DC_test</i>, respectively) set using only the terms in the
  * <code>selectedFeatures</code>, should be created.
@@ -31,11 +32,12 @@ public interface MultinomialNaiveBayesClassification
     /**
      * This method determines the words which should be chosen to represent documents in
      *
-     * @param trainingSet
-     * @param m
-     * @return
+     * @param trainingSet the list of documents in the training set.
+     * @param m the number of features to select. This must be greater than 1 but less than the number of distinct
+     *          words in the training set.
+     * @return the set of words/features to use.
      */
-    Set<String> featureSelection(DcTrainingSet trainingSet, int m);
+    Set<String> featureSelection(List<Document> trainingSet, int m);
 
     /**
      * This method assigns the most probable class for a particular document in test set. In performing

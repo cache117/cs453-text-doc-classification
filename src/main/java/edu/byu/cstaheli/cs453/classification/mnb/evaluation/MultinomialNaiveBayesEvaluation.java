@@ -1,6 +1,7 @@
-package edu.byu.cstaheli.cs453.classification.mnb;
+package edu.byu.cstaheli.cs453.classification.mnb.evaluation;
 
-import edu.byu.cstaheli.cs453.classification.set.mnb.TestSet;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
+import edu.byu.cstaheli.cs453.classification.mnb.document.TestSet;
 
 /**
  * This class computes the <i>accuracy</i> of the trained MNB in text document classification.

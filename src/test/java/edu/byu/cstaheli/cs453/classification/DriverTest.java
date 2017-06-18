@@ -1,14 +1,27 @@
 package edu.byu.cstaheli.cs453.classification;
 
 import edu.byu.cstaheli.cs453.classification.document.Document;
+import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DriverTest
 {
+    @Test
+    void train()
+    {
+        String basePath = "src/test/resources/20NG";
+        Driver driver = new Driver();
+
+        DocumentCollection documentCollection = Utilities.getDocumentCollection();
+        driver.train(documentCollection.getDocuments());
+    }
+
     @Test
     void readInCorpus()
     {

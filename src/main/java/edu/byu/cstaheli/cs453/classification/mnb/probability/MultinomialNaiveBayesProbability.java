@@ -1,8 +1,6 @@
-package edu.byu.cstaheli.cs453.classification.mnb;
+package edu.byu.cstaheli.cs453.classification.mnb.probability;
 
-import edu.byu.cstaheli.cs453.classification.set.ClassProbabilities;
-import edu.byu.cstaheli.cs453.classification.set.mnb.TrainingSet;
-import edu.byu.cstaheli.cs453.classification.set.WordProbabilities;
+import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 
 /**
  * This class is used for training an MNB.
@@ -15,14 +13,14 @@ public interface MultinomialNaiveBayesProbability
      * @param trainingSet the training set to compute the probabilities for.
      * @return word probabilities that includes for each word in the vocabulary its probability for each class in C.
      */
-    WordProbabilities computeWordProbability(TrainingSet trainingSet);
+    WordProbabilities computeWordProbability(MultinomialSet trainingSet);
 
     /**
      * This method computes the probability of each natural class in C using the trainingSet.
      * @param trainingSet the training set to compute the probabilities for.
      * @return class probabilities that contain the probability for each class in C.
      */
-    ClassProbabilities computeClassProbability(TrainingSet trainingSet);
+    ClassProbabilities computeClassProbability(MultinomialSet trainingSet);
 
     /**
      * This method retrieves the probability value of a word in a particular class, which includes the probability
