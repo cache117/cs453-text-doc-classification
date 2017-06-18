@@ -44,7 +44,7 @@ public interface MultinomialNaiveBayesClassification
      * This method assigns the most probable class for a particular document in test set. In performing
      * the classification task, it uses the methods getWordProbability and getClassProbability, which are defined
      * in {@link MultinomialNaiveBayesProbability#getWordProbability(String, String)} and
-     * {@link MultinomialNaiveBayesProbability#getClassProbability(String)}, respectively.
+     * {@link MultinomialNaiveBayesProbability#getClassProbability(int, int)}, respectively.
      *
      * @param document The input of label is a document D in test_set.
      * @return the output is the class c that should be assigned to D.

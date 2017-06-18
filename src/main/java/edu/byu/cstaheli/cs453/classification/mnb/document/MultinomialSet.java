@@ -55,7 +55,7 @@ public class MultinomialSet
      */
     public int getNumberOfTermsWithClass(String outputClass)
     {
-        Collection<MnbDocument> set = this.documents.get(outputClass);
+        Collection<MnbDocument> set = getDocumentsWithClass(outputClass);
         if (!set.isEmpty())
         {
             return set
@@ -67,6 +67,17 @@ public class MultinomialSet
         {
             return 0;
         }
+    }
+
+    /**
+     * Gets all of the documents that belong to the given class.
+     *
+     * @param outputClass the class to get the associated classes for.
+     * @return the documents that belong to the given class.
+     */
+    private Collection<MnbDocument> getDocumentsWithClass(String outputClass)
+    {
+        return documents.get(outputClass);
     }
 
     /**
@@ -103,5 +114,49 @@ public class MultinomialSet
     public Set<String> getClasses()
     {
         return documents.keySet();
+    }
+
+    /**
+     * Gets the number of terms w in Class c.
+     *
+     * @param word        the term to check.
+     * @param outputClass the class to check.
+     * @return the frequency of w in c.
+     */
+    public int getTermFrequencyInClass(String word, String outputClass)
+    {
+        Collection<MnbDocument> set = getDocumentsWithClass(outputClass);
+        if (!set.isEmpty())
+        {
+            return set
+                    .stream()
+                    .mapToInt(document -> document.getTermFrequency(word))
+                    .sum();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    /**
+     * Gets the number of documents with the given class.
+     *
+     * @param outputClass the class to check.
+     * @return the number of documents with the given class.
+     */
+    public int getNumberOfDocumentsWithClass(String outputClass)
+    {
+        return getDocumentsWithClass(outputClass).size();
+    }
+
+    /**
+     * Gets the number of documents that exist in the set.
+     *
+     * @return the number of documents that exist in the set.
+     */
+    public int getNumberOfDocuments()
+    {
+        return documents.size();
     }
 }
