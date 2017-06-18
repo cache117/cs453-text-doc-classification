@@ -1,9 +1,6 @@
 package edu.byu.cstaheli.cs453.classification.document;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents all of the documents in a collection. This class has methods to get the training and test sets using a
@@ -56,12 +53,17 @@ public class DocumentCollection
         documents.addAll(c);
     }
 
+    public void clear()
+    {
+        documents.clear();
+    }
+
     /**
      * Shuffles the documents randomly. This is used to ensure a different training and test set are obtained.
      */
-    public void shuffle()
+    public void shuffle(Random random)
     {
-        Collections.shuffle(documents);
+        Collections.shuffle(documents, random);
     }
 
     /**
