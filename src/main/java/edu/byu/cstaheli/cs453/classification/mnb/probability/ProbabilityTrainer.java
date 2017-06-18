@@ -9,25 +9,8 @@ import java.util.Set;
  */
 public class ProbabilityTrainer implements MultinomialNaiveBayesProbability
 {
-    private MultinomialSet multinomialSet;
-
-    public ProbabilityTrainer(MultinomialSet multinomialSet)
-    {
-        this.multinomialSet = multinomialSet;
-    }
-
-    public MultinomialSet getMultinomialSet()
-    {
-        return multinomialSet;
-    }
-
-    public void setMultinomialSet(MultinomialSet multinomialSet)
-    {
-        this.multinomialSet = multinomialSet;
-    }
-
     @Override
-    public WordProbabilities computeWordProbability(MultinomialSet trainingSet)
+    public WordProbabilities computeWordProbabilities(MultinomialSet trainingSet)
     {
         WordProbabilities wordProbabilities = new WordProbabilities();
         Set<String> classes = trainingSet.getClasses();
@@ -47,7 +30,7 @@ public class ProbabilityTrainer implements MultinomialNaiveBayesProbability
     }
 
     @Override
-    public ClassProbabilities computeClassProbability(MultinomialSet trainingSet)
+    public ClassProbabilities computeClassProbabilities(MultinomialSet trainingSet)
     {
         ClassProbabilities classProbabilities = new ClassProbabilities();
         Set<String> classes = trainingSet.getClasses();

@@ -14,7 +14,7 @@ public interface MultinomialNaiveBayesProbability
      * @param trainingSet the training set to compute the probabilities for.
      * @return word probabilities that includes for each word in the vocabulary its probability for each class in C.
      */
-    WordProbabilities computeWordProbability(MultinomialSet trainingSet);
+    WordProbabilities computeWordProbabilities(MultinomialSet trainingSet);
 
     /**
      * This method computes the probability of each natural class in C using the trainingSet.
@@ -22,7 +22,7 @@ public interface MultinomialNaiveBayesProbability
      * @param trainingSet the training set to compute the probabilities for.
      * @return class probabilities that contain the probability for each class in C.
      */
-    ClassProbabilities computeClassProbability(MultinomialSet trainingSet);
+    ClassProbabilities computeClassProbabilities(MultinomialSet trainingSet);
 
     /**
      * This method retrieves the probability value of a word in a particular class, which includes the probability

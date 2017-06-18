@@ -4,9 +4,12 @@ import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
 import edu.byu.cstaheli.cs453.classification.document.EmailProcessor;
 import edu.byu.cstaheli.cs453.classification.mnb.classification.Classifier;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 import edu.byu.cstaheli.cs453.classification.mnb.document.TestSet;
 import edu.byu.cstaheli.cs453.classification.mnb.evaluation.Evaluator;
+import edu.byu.cstaheli.cs453.classification.mnb.evaluation.MultinomialNaiveBayesEvaluation;
+import edu.byu.cstaheli.cs453.classification.mnb.probability.MultinomialNaiveBayesProbability;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ProbabilityTrainer;
 import edu.byu.cstaheli.cs453.common.util.StopWordsRemover;
 
@@ -83,17 +86,11 @@ public class Driver
         {
             List<Document> trainingSetDocuments = documentCollection.getTrainingSet(i);
 
-            Classifier classifier = new Classifier();
-            Set<String> selectedFeatures = classifier.featureSelection(trainingSetDocuments, numberOfFeatures);
-
-            MultinomialSet trainingSet = new MultinomialSet(selectedFeatures);
-            trainingSet.add(trainingSetDocuments);
-            ProbabilityTrainer probability = new ProbabilityTrainer(trainingSet);
+            MultinomialNaiveBayesEvaluation evaluator = new Evaluator(trainingSetDocuments, numberOfFeatures);
 
             List<Document> testSetDocuments = documentCollection.getTestSet(i);
             //TODO get the piece with TestSet working
             TestSet testSet = new TestSet();
-            Evaluator evaluator = new Evaluator();
             evaluator.accuracyMeasure(testSet);
         }
     }
