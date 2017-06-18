@@ -81,7 +81,7 @@ public class MultinomialSet
     }
 
     /**
-     * Returns all of the words that are available in the Multinomial set. The documents may or may not contain these
+     * Returns all of the words that are available in the Multinomial set. Each document may or may not contain these
      * words, but these are all of the selected features for training.
      *
      * @return the set of words in the multinomial set.
@@ -98,11 +98,7 @@ public class MultinomialSet
      */
     public int getVocabularySize()
     {
-        return documents
-                .values()
-                .stream()
-                .mapToInt(MnbDocument::getNumberOfTerms)
-                .sum();
+        return selectedFeatures.size();
     }
 
     /**

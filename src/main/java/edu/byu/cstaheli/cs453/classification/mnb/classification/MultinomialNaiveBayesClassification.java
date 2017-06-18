@@ -40,6 +40,7 @@ public interface MultinomialNaiveBayesClassification
      */
     Set<String> featureSelection(List<Document> trainingSet, int m);
 
+    //TODO fix the documentation below
     /**
      * This method assigns the most probable class for a particular document in test set. In performing
      * the classification task, it uses the methods getWordProbability and getClassProbability, which are defined

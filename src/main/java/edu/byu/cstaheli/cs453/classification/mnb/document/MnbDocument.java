@@ -16,7 +16,7 @@ public class MnbDocument
 {
     private String documentId;
     private String outputClass;
-    private Map<String, Long> words;
+    private Map<String, Integer> words;
 
     /**
      * Creates a multinomial representation of a document given the document id, class, and list of words to use from
@@ -34,7 +34,7 @@ public class MnbDocument
         this.outputClass = outputClass;
         this.words = words
                 .stream()
-                .collect(Collectors.groupingBy(o -> o, Collectors.counting()));
+                .collect(Collectors.groupingBy(o -> o, Collectors.reducing(0, e -> 1, Integer::sum)));
     }
 
     /**
@@ -73,21 +73,26 @@ public class MnbDocument
      * Gets the number of times the given word appears.
      *
      * @param word the word to get the frequency of.
-     * @return the frequency of the word in this document.
+     * @return the frequency of the word in this document. If the word doesn't appear in the document, this will be 0;
      */
     public int getTermFrequency(String word)
     {
-        return Math.toIntExact(words.get(word));
+        Integer frequency = words.get(word);
+        return (frequency != null) ? frequency : 0;
     }
 
     /**
      * Gets the total number of terms in the document.
      *
-     * @return he total number of terms in the document.
+     * @return the total number of terms in the document.
      */
     public int getNumberOfTerms()
     {
-        return words.size();
+        return words
+                .entrySet()
+                .stream()
+                .mapToInt(Map.Entry::getValue)
+                .sum();
     }
 
     /**

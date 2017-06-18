@@ -2,19 +2,13 @@ package edu.byu.cstaheli.cs453.classification.document;
 
 import edu.byu.cstaheli.cs453.classification.Driver;
 import edu.byu.cstaheli.cs453.classification.Utilities;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Created by cstaheli on 6/17/2017.
- */
 class DocumentCollectionTest
 {
     private DocumentCollection documentCollection;
@@ -22,7 +16,7 @@ class DocumentCollectionTest
     @BeforeEach
     void setUp()
     {
-        documentCollection = Utilities.getDocumentCollection();
+        documentCollection = Utilities.getSlidesDocumentCollection();
     }
 
     @Test
@@ -46,5 +40,4 @@ class DocumentCollectionTest
         testSet = documentCollection.getTestSet(1);
         assertEquals(2001, testSet.size());
     }
-
 }
