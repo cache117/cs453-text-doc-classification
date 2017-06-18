@@ -29,12 +29,12 @@ public interface MultinomialNaiveBayesProbability
      * @param outputClass a class c.
      * @return the probability of word w in c
      */
-    WordProbabilities getWordProbability(String word, String outputClass);
+    double getWordProbability(String word, String outputClass);
 
     /**
      * This method retrieves the probability value of a natural class.
      * @param outputClass a class c.
      * @return the probability of c, stored in a ClassProbabilities.
      */
-    ClassProbabilities getClassProbability(String outputClass);
+    double getClassProbability(String outputClass);
 }

@@ -3,7 +3,11 @@ package edu.byu.cstaheli.cs453.classification;
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
 import edu.byu.cstaheli.cs453.classification.document.EmailProcessor;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.Classifier;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
+import edu.byu.cstaheli.cs453.classification.mnb.document.TestSet;
+import edu.byu.cstaheli.cs453.classification.mnb.evaluation.Evaluator;
+import edu.byu.cstaheli.cs453.classification.mnb.probability.ProbabilityTrainer;
 import edu.byu.cstaheli.cs453.common.util.StopWordsRemover;
 
 import java.io.IOException;
@@ -13,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,11 +64,16 @@ public class Driver
         Driver driver = new Driver();
         List<Document> documents = driver.readInCorpus(args[0]);
         double startTime = System.currentTimeMillis();
-        driver.train(documents);
+        driver.train(documents, -1);
         double elapsedTime = System.currentTimeMillis() - startTime;
     }
 
-    public void train(List<Document> documents)
+    /**
+     * runs the training algorithm for the given documents with the given number of features, if any.
+     * @param documents the documents to train and test on.
+     * @param numberOfFeatures the number of features to use for training. -1 indicates that all should be used.
+     */
+    public void train(List<Document> documents, int numberOfFeatures)
     {
         DocumentCollection documentCollection = getDocumentCollectionInstance();
         documentCollection.addAll(documents);
@@ -72,10 +82,19 @@ public class Driver
         for (int i = 0; i < documentCollection.getFolds(); ++i)
         {
             List<Document> trainingSetDocuments = documentCollection.getTrainingSet(i);
-            MultinomialSet trainingSet = new MultinomialSet();
+
+            Classifier classifier = new Classifier();
+            Set<String> selectedFeatures = classifier.featureSelection(trainingSetDocuments, numberOfFeatures);
+
+            MultinomialSet trainingSet = new MultinomialSet(selectedFeatures);
             trainingSet.add(trainingSetDocuments);
+            ProbabilityTrainer probability = new ProbabilityTrainer(trainingSet);
 
             List<Document> testSetDocuments = documentCollection.getTestSet(i);
+            //TODO get the piece with TestSet working
+            TestSet testSet = new TestSet();
+            Evaluator evaluator = new Evaluator();
+            evaluator.accuracyMeasure(testSet);
         }
     }
 

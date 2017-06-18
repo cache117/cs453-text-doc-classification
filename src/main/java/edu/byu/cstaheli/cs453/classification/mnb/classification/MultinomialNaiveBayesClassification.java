@@ -34,7 +34,8 @@ public interface MultinomialNaiveBayesClassification
      *
      * @param trainingSet the list of documents in the training set.
      * @param m the number of features to select. This must be greater than 1 but less than the number of distinct
-     *          words in the training set.
+     *          words in the training set, or it can be -1, which will mean that all words should be used and no feature
+     *          selection should happen.
      * @return the set of words/features to use.
      */
     Set<String> featureSelection(List<Document> trainingSet, int m);

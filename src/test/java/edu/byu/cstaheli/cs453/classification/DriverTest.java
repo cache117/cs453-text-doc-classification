@@ -19,7 +19,7 @@ class DriverTest
         Driver driver = new Driver();
 
         DocumentCollection documentCollection = Utilities.getDocumentCollection();
-        driver.train(documentCollection.getDocuments());
+        driver.train(documentCollection.getDocuments(), -1);
     }
 
     @Test
