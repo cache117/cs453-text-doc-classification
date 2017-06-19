@@ -144,6 +144,15 @@ public class Driver
         String fileName = path.getFileName().toString();
         String outputClass = path.getParent().getFileName().toString();
         List<String> words = EmailProcessor.readEmail(path);
-        return new Document(fileName, outputClass, words);
+        return new Document(fileName, outputClass, removeStopwords(words));
+    }
+
+    private List<String> removeStopwords(List<String> words)
+    {
+        StopWordsRemover stopWordsRemover = getStopWordsRemoverInstance();
+        return words
+                .stream()
+                .filter(word -> !stopWordsRemover.contains(word))
+                .collect(Collectors.toList());
     }
 }
