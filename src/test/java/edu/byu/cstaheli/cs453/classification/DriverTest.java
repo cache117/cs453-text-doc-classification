@@ -14,12 +14,19 @@ class DriverTest
     void train()
     {
         Driver driver = new Driver();
-
+        List<Document> documents;
+        String basePath;
         DocumentCollection documentCollection = Utilities.getHandoutDocumentCollection();
-        driver.train(documentCollection.getDocuments(), -1);
+//        driver.train(documentCollection.getDocuments(), -1);
+//
+//        documentCollection.clear();
+//        basePath = "src/test/resources/20NG";
+//        documents = driver.readInCorpus(basePath);
+//        driver.train(documents, -1);
 
-        String basePath = "src/test/resources/20NG";
-        List<Document> documents = driver.readInCorpus(basePath);
+        documentCollection.clear();
+        basePath = "src/main/resources/20NG";
+        documents = driver.readInCorpus(basePath);
         driver.train(documents, -1);
     }
 

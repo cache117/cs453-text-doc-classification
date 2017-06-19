@@ -88,26 +88,34 @@ public class Driver
         documentCollection.addAll(documents);
         documentCollection.shuffle(new Random());
 
-        double sumAccuracy = 0;
-        double elapsedTime = 0;
+        double sumAccuracy = 0.0;
+        double trainingElapsedTime = 0.0;
+        double testElapsedTime = 0.0;
         int folds = documentCollection.getFolds();
         System.out.format("Number of folds: %s\n\n", folds);
         for (int i = 0; i < folds; ++i)
         {
+            double trainingStartTime = System.currentTimeMillis();
             List<Document> trainingSetDocuments = documentCollection.getTrainingSet(i);
-
             MultinomialNaiveBayesEvaluation evaluator = new Evaluator(trainingSetDocuments, numberOfFeatures);
+            trainingElapsedTime += System.currentTimeMillis() - trainingStartTime;
 
+            double testStartTime = System.currentTimeMillis();
             List<Document> testSetDocuments = documentCollection.getTestSet(i);
             TestSet testSet = new TestSet(testSetDocuments);
-            double startTime = System.currentTimeMillis();
             double accuracy = evaluator.accuracyMeasure(testSet);
-            elapsedTime += System.currentTimeMillis() - startTime;
+            testElapsedTime += System.currentTimeMillis() - testStartTime;
             sumAccuracy += accuracy;
             System.out.format("Fold: %s, Accuracy: %s\n", i, accuracy);
         }
-        elapsedTime /= folds;
-        System.out.format("Average time to train (in seconds): %s\n", elapsedTime / 1000d);
+        System.out.format("Total time to train (in seconds): %s\n", trainingElapsedTime / 1000d);
+        System.out.format("Total time to test (in seconds): %s\n", testElapsedTime / 1000d);
+
+        trainingElapsedTime /= folds;
+        testElapsedTime /= folds;
+        System.out.format("Average time to train (in seconds): %s\n", trainingElapsedTime / 1000d);
+        System.out.format("Average time to test (in seconds): %s\n", testElapsedTime / 1000d);
+
         System.out.format("Mean accuracy: %s\n\n", sumAccuracy / folds);
     }
 

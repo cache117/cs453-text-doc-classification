@@ -158,7 +158,9 @@ public class Classifier implements MultinomialNaiveBayesFeatureSelector, Multino
         {
             double product = 1;
 
-            for (String word : wordProbabilities.getWords())
+            //Words that don't exist in the document have a 0 term frequency, which means their factor in the
+            //probability is 1, so they can be safely ignored.
+            for (String word : mnbDocument.getUniqueTerms())
             {
                 int termFrequency = mnbDocument.getTermFrequency(word);
                 double probability = wordProbabilities.getProbability(word, outputClass);
