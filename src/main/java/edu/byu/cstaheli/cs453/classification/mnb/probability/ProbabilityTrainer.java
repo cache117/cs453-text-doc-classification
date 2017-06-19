@@ -22,7 +22,7 @@ public class ProbabilityTrainer implements MultinomialNaiveBayesProbability
             for (String word : wordsInSet)
             {
                 int termFrequency = trainingSet.getTermFrequencyInClass(word, outputClass);
-                double probability = getWordProbability(termFrequency, numberOfTermsInClass, vocabSize);
+                double probability = calculateWordProbability(termFrequency, numberOfTermsInClass, vocabSize);
                 wordProbabilities.add(word, outputClass, probability);
             }
         }
@@ -38,7 +38,7 @@ public class ProbabilityTrainer implements MultinomialNaiveBayesProbability
         for (String outputClass : classes)
         {
             int numberOfDocumentsWithClass = trainingSet.getNumberOfDocumentsWithClass(outputClass);
-            double probability = getClassProbability(numberOfDocumentsWithClass, numberOfDocuments);
+            double probability = calculateClassProbability(numberOfDocumentsWithClass, numberOfDocuments);
             classProbabilities.add(outputClass, probability);
         }
         return classProbabilities;

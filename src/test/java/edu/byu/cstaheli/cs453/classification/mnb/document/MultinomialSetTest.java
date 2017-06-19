@@ -3,13 +3,10 @@ package edu.byu.cstaheli.cs453.classification.mnb.document;
 import edu.byu.cstaheli.cs453.classification.Utilities;
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
-import edu.byu.cstaheli.cs453.classification.mnb.classification.Classifier;
-import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

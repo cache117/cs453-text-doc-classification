@@ -3,7 +3,7 @@ package edu.byu.cstaheli.cs453.classification;
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
 import edu.byu.cstaheli.cs453.classification.mnb.classification.Classifier;
-import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesFeatureSelector;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 
 import java.util.Arrays;
@@ -83,7 +83,7 @@ public class Utilities
 
     public static MultinomialSet getMultinomialSetFromDocuments(List<Document> trainingSetDocuments)
     {
-        MultinomialNaiveBayesClassification classifier = new Classifier();
+        MultinomialNaiveBayesFeatureSelector classifier = new Classifier();
         Set<String> selectedFeatures = classifier.featureSelection(trainingSetDocuments, -1);
 
         MultinomialSet trainingSet = new MultinomialSet(selectedFeatures);

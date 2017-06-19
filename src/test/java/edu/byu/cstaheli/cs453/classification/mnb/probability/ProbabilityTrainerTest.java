@@ -68,28 +68,28 @@ class ProbabilityTrainerTest
         int termsInClass = 16;
         int vocabSize = 6;
         MultinomialNaiveBayesProbability probability = new ProbabilityTrainer();
-        double wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        double wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(7d / 22d, wordProbability);
 
         termFrequency = 3;
-        wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(4d / 22d, wordProbability);
 
         termFrequency = 0;
-        wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(1d / 22d, wordProbability);
 
         termFrequency = 2;
-        wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(3d / 22d, wordProbability);
 
         termFrequency = 3;
         termsInClass = 25;
-        wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(4d / 31d, wordProbability);
 
         termFrequency = 5;
-        wordProbability = probability.getWordProbability(termFrequency, termsInClass, vocabSize);
+        wordProbability = probability.calculateWordProbability(termFrequency, termsInClass, vocabSize);
         assertEquals(6d / 31d, wordProbability);
 
     }
@@ -100,7 +100,7 @@ class ProbabilityTrainerTest
         int documentsWithClass = 3;
         int documents = 6;
         MultinomialNaiveBayesProbability probability = new ProbabilityTrainer();
-        double classProbability = probability.getClassProbability(documentsWithClass, documents);
+        double classProbability = probability.calculateClassProbability(documentsWithClass, documents);
         assertEquals(3d / 6d, classProbability);
         assertEquals(1d / 2d, classProbability);
     }

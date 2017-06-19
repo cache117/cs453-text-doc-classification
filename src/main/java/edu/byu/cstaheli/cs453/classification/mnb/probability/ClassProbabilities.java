@@ -2,6 +2,7 @@ package edu.byu.cstaheli.cs453.classification.mnb.probability;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A representation of classes and their probabilities. This includes the probability of each class in C.
@@ -39,5 +40,10 @@ public class ClassProbabilities
     {
         Double probability = classProbabilities.get(outputClass);
         return (probability != null) ? probability : -1;
+    }
+
+    public Set<String> getClasses()
+    {
+        return classProbabilities.keySet();
     }
 }

@@ -2,6 +2,8 @@ package edu.byu.cstaheli.cs453.classification.mnb.probability;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A representation of a probability of a word in a class. This includes for each word in the vocabulary its probability
@@ -41,6 +43,15 @@ public class WordProbabilities
         WordClassPair pair = new WordClassPair(word, outputClass);
         Double probability = wordProbabilities.get(pair);
         return (probability != null) ? probability : -1;
+    }
+
+    public Set<String> getWords()
+    {
+        return wordProbabilities
+                .keySet()
+                .stream()
+                .map(WordClassPair::getWord)
+                .collect(Collectors.toSet());
     }
 
     /**

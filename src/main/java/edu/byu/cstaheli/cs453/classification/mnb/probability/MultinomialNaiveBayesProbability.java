@@ -33,7 +33,7 @@ public interface MultinomialNaiveBayesProbability
      * @param vocabSize            the size of the vocabulary in the training set.
      * @return the probability of word w in c.
      */
-    default double getWordProbability(int termFrequency, int numberOfTermsInClass, int vocabSize)
+    default double calculateWordProbability(int termFrequency, int numberOfTermsInClass, int vocabSize)
     {
         return (double) (termFrequency + 1) / (double) (numberOfTermsInClass + vocabSize);
     }
@@ -45,7 +45,7 @@ public interface MultinomialNaiveBayesProbability
      * @param numberOfDocuments          the total number of documents.
      * @return the probability of c.
      */
-    default double getClassProbability(int numberOfDocumentsWithClass, int numberOfDocuments)
+    default double calculateClassProbability(int numberOfDocumentsWithClass, int numberOfDocuments)
     {
         return (double) numberOfDocumentsWithClass / (double) numberOfDocuments;
     }

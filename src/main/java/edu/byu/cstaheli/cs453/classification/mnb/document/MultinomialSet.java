@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import edu.byu.cstaheli.cs453.classification.document.Document;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -154,5 +155,15 @@ public class MultinomialSet
     public int getNumberOfDocuments()
     {
         return documents.size();
+    }
+
+    /**
+     * Gets all of the documents in the set.
+     *
+     * @return all of the documents in the set.
+     */
+    public List<MnbDocument> getDocuments()
+    {
+        return new ArrayList<>(documents.values());
     }
 }

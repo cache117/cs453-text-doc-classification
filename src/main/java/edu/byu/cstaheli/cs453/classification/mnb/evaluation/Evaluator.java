@@ -2,7 +2,7 @@ package edu.byu.cstaheli.cs453.classification.mnb.evaluation;
 
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.mnb.classification.Classifier;
-import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesFeatureSelector;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 import edu.byu.cstaheli.cs453.classification.mnb.document.TestSet;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ClassProbabilities;
@@ -18,23 +18,37 @@ import java.util.Set;
  */
 public class Evaluator implements MultinomialNaiveBayesEvaluation
 {
-    private WordProbabilities wordProbabilities;
-    private ClassProbabilities classProbabilities;
+    private Classifier classifier;
     public Evaluator(List<Document> trainingSetDocuments, int numberOfFeatures)
     {
-        MultinomialNaiveBayesClassification classifier = new Classifier();
+        classifier = new Classifier();
         Set<String> selectedFeatures = classifier.featureSelection(trainingSetDocuments, numberOfFeatures);
 
         MultinomialSet trainingSet = new MultinomialSet(selectedFeatures);
         trainingSet.add(trainingSetDocuments);
         MultinomialNaiveBayesProbability probability = new ProbabilityTrainer();
-        wordProbabilities = probability.computeWordProbabilities(trainingSet);
-        classProbabilities = probability.computeClassProbabilities(trainingSet);
+        WordProbabilities wordProbabilities = probability.computeWordProbabilities(trainingSet);
+        ClassProbabilities classProbabilities = probability.computeClassProbabilities(trainingSet);
+        classifier.setWordProbabilities(wordProbabilities);
+        classifier.setClassProbabilities(classProbabilities);
     }
 
     @Override
     public double accuracyMeasure(TestSet testSet)
     {
-        return 0;
+        List<Document> testDocuments = testSet.getDocuments();
+        int count = 0;
+        int correct = 0;
+        for (Document document : testDocuments)
+        {
+            String suggestedLabel = classifier.label(document);
+            String actualLabel = document.getOutputClass();
+            if (suggestedLabel.equals(actualLabel))
+            {
+                ++correct;
+            }
+            ++count;
+        }
+        return (double) correct / (double) count;
     }
 }

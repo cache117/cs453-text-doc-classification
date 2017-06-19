@@ -1,6 +1,6 @@
 package edu.byu.cstaheli.cs453.classification.mnb.evaluation;
 
-import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesClassification;
+import edu.byu.cstaheli.cs453.classification.mnb.classification.MultinomialNaiveBayesFeatureSelector;
 import edu.byu.cstaheli.cs453.classification.mnb.document.TestSet;
 
 /**
@@ -15,7 +15,7 @@ public interface MultinomialNaiveBayesEvaluation
      * <code>testSet</code>.
      *
      * @param testSet the test set to run accuracy on. This is the set of documents in <code>testSet</code> and their
-     *                labels determined by using {@link MultinomialNaiveBayesClassification}
+     *                labels determined by using {@link MultinomialNaiveBayesFeatureSelector}
      * @return the classification accuracy of the documents in <code>testSet</code>.
      */
     double accuracyMeasure(TestSet testSet);
