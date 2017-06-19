@@ -24,7 +24,7 @@ public class MultinomialSet
      */
     public MultinomialSet(Set<String> selectedFeatures)
     {
-        documents = ArrayListMultimap.create();
+        documents = ArrayListMultimap.create(10, 1000);
         this.selectedFeatures = selectedFeatures;
     }
 
