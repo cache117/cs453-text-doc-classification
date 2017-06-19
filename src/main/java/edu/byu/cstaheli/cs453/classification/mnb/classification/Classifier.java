@@ -2,7 +2,9 @@ package edu.byu.cstaheli.cs453.classification.mnb.classification;
 
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MnbDocument;
+import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ClassProbabilities;
+import edu.byu.cstaheli.cs453.classification.mnb.probability.ProbabilityTrainer;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.WordProbabilities;
 
 import java.util.*;
@@ -79,22 +81,93 @@ public class Classifier implements MultinomialNaiveBayesFeatureSelector, Multino
                 .getKey();
     }
 
+    /**
+     * Calculates the log base two of a value.
+     *
+     * @param value the value to calculate the log log.
+     * @return the log base two of a value.
+     */
+    private static double log2(double value)
+    {
+        return Math.log(value) / Math.log(2);
+    }
+
+    /**
+     * Used for information gain, this will calculate the probability times the log of the probability.
+     *
+     * @param p the probability.
+     * @return the probability times the log of the probability.
+     */
+    private static double calcPLogP(double p)
+    {
+        if (p == 0) return 0;
+        return p * log2(p);
+    }
+
     @Override
     public Set<String> featureSelection(List<Document> trainingSet, int m)
     {
+        Set<String> allWordsInDocuments = getAllWordsInDocuments(trainingSet);
         if (m == -1)
         {
-            return trainingSet
-                    .stream()
-                    .map(Document::getWords)
-                    .flatMap(Collection::stream)
-                    .collect(Collectors.toSet());
+            return allWordsInDocuments;
         }
         else
         {
-            //TODO map the words to their information gain and return the top m results as a set.
-            return null;
+            Map<String, Double> informationGainMap = new HashMap<>();
+            MultinomialSet set = new MultinomialSet(allWordsInDocuments);
+            set.add(trainingSet);
+            for (String word : allWordsInDocuments)
+            {
+                double informationGain = calculateInformationGain(word, set);
+                informationGainMap.put(word, informationGain);
+            }
+            return getTopMKeysSortedByValue(informationGainMap, m);
         }
+    }
+
+    double calculateInformationGain(String word, MultinomialSet documents)
+    {
+        ProbabilityTrainer trainer = new ProbabilityTrainer();
+        ClassProbabilities classProbabilities = trainer.computeClassProbabilities(documents);
+        WordProbabilities wordProbabilities = trainer.computeWordProbabilities(documents);
+
+        double classProbabilitiesSum = 0;
+        double wordProbabilitiesSum = 0;
+        double notWordProbabilitiesSum = 0;
+
+        for (String outputClass : documents.getClasses())
+        {
+            classProbabilitiesSum += calcPLogP(classProbabilities.getProbability(outputClass));
+            double probabilityOfClassGivenWord = wordProbabilities.getProbability(word, outputClass);
+            wordProbabilitiesSum += calcPLogP(probabilityOfClassGivenWord);
+            notWordProbabilitiesSum += calcPLogP(1 - probabilityOfClassGivenWord);
+        }
+        double numberOfDocumentsWithWord = documents.getNumberOfDocumentsWithWord(word);
+        double numberOfDocuments = documents.getNumberOfDocuments();
+        double probabilityOfWord = numberOfDocumentsWithWord / numberOfDocuments;
+        double probabilityOfNotWord = 1 - probabilityOfWord;
+        return -1 * classProbabilitiesSum + (probabilityOfWord * wordProbabilitiesSum) + (probabilityOfNotWord * notWordProbabilitiesSum);
+    }
+
+    private Set<String> getAllWordsInDocuments(List<Document> documents)
+    {
+        return documents
+                .stream()
+                .map(Document::getWords)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+    }
+
+    private Set<String> getTopMKeysSortedByValue(Map<String, Double> map, int m)
+    {
+        return new HashSet<>(map
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList())
+                .subList(0, m));
     }
 
     @Override

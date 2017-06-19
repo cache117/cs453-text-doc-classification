@@ -162,4 +162,15 @@ public class MnbDocument
     {
         return String.format("Doc: %s - %s", documentId, outputClass);
     }
+
+    /**
+     * Determines if the document has the given word.
+     *
+     * @param word the given word.
+     * @return true if it contains the word, false otherwise.
+     */
+    public boolean containsWord(String word)
+    {
+        return words.containsKey(word);
+    }
 }

@@ -9,11 +9,12 @@ import edu.byu.cstaheli.cs453.classification.mnb.probability.ClassProbabilities;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.MultinomialNaiveBayesProbability;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ProbabilityTrainer;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.WordProbabilities;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,8 +25,9 @@ class ClassifierTest
 {
     private static Classifier classifier;
     private static MultinomialSet trainingSet;
-    @BeforeAll
-    static void setUpAll()
+
+    @BeforeEach
+    void setUp()
     {
         DocumentCollection documentCollection = Utilities.getHandoutDocumentCollection();
         List<Document> trainingSetDocuments = documentCollection.getDocuments().subList(0, 6);
@@ -37,6 +39,16 @@ class ClassifierTest
         classifier.setWordProbabilities(wordProbabilities);
         classifier.setClassProbabilities(classProbabilities);
     }
+
+    @Test
+    void calculateInformationGain()
+    {
+        Classifier classifier = new Classifier();
+        List<Document> documents = Utilities.getSlidesDocumentCollection().getDocuments();
+        Set<String> features = classifier.featureSelection(documents, 3);
+        assertEquals(3, features.size());
+    }
+
     @Test
     void featureSelection()
     {
@@ -60,7 +72,7 @@ class ClassifierTest
         assertEquals(55566d / Math.pow(22, 11), probability, 0.00000000001);
 
         probability = documentInClassProbabilities.get("No");
-        assertEquals((80621568d / Math.pow(31,11)), probability, 0.00000000001);
+        assertEquals((80621568d / Math.pow(31, 11)), probability, 0.00000000001);
     }
 
     @Test

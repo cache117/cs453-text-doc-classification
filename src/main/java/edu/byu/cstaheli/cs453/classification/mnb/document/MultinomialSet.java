@@ -166,4 +166,19 @@ public class MultinomialSet
     {
         return new ArrayList<>(documents.values());
     }
+
+    /**
+     * Gets the number of distinct documents that have the given word at least once.
+     *
+     * @param word the word to check for.
+     * @return the number of documents that contain the word.
+     */
+    public int getNumberOfDocumentsWithWord(String word)
+    {
+        return (int) documents
+                .values()
+                .stream()
+                .filter(document -> document.containsWord(word))
+                .count();
+    }
 }
