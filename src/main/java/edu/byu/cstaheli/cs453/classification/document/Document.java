@@ -2,6 +2,7 @@ package edu.byu.cstaheli.cs453.classification.document;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A representation of a document. In this case, this is an email.
@@ -47,6 +48,16 @@ public class Document
 
     public int getNumberOfDistinctWords()
     {
-        return new HashSet<>(words).size();
+        return getDistinctWords().size();
+    }
+
+    public Set<String> getDistinctWords()
+    {
+        return new HashSet<>(words);
+    }
+
+    public boolean contains(String word)
+    {
+        return words.contains(word);
     }
 }

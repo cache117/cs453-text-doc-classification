@@ -1,0 +1,98 @@
+"C:\Program Files\Java\jdk1.8.0_121\bin\java" "-javaagent:C:\Program Files (x86)\JetBrains\IntelliJ IDEA 2017.1\lib\idea_rt.jar=61313:C:\Program Files (x86)\JetBrains\IntelliJ IDEA 2017.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_121\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\deploy.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\access-bridge-64.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\cldrdata.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\dnsns.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\jaccess.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\jfxrt.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\localedata.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\nashorn.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\sunec.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\sunjce_provider.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\sunmscapi.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\sunpkcs11.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\ext\zipfs.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\javaws.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\jfxswt.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\management-agent.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\plugin.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_121\jre\lib\rt.jar;C:\Users\cstaheli\IdeaProjects\classification\target\classes;C:\Users\cstaheli\.m2\repository\com\google\guava\guava\22.0\guava-22.0.jar;C:\Users\cstaheli\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\cstaheli\.m2\repository\com\google\errorprone\error_prone_annotations\2.0.18\error_prone_annotations-2.0.18.jar;C:\Users\cstaheli\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\cstaheli\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar" edu.byu.cstaheli.cs453.classification.Driver src/main/resources
+Using all features in collection
+Calculating accuracy using cross-validation...
+Number of folds: 5
+
+Fold: 0, Accuracy: 0.5652826413206603
+Fold: 1, Accuracy: 0.558
+Fold: 2, Accuracy: 0.5552776388194097
+Fold: 3, Accuracy: 0.553
+Fold: 4, Accuracy: 0.58
+Total time to train (in seconds): 159.722
+Total time to test (in seconds): 2.808
+Average time to train (in seconds): 31.9444
+Average time to test (in seconds): 0.5616
+Mean accuracy: 0.5623120560280139
+
+Using 6200 features in collection
+Calculating accuracy using cross-validation...
+Number of folds: 5
+
+
+Fold: 0, Accuracy: 0.2908227056764191
+
+Fold: 1, Accuracy: 0.2873218304576144
+
+Fold: 2, Accuracy: 0.28557139284821204
+
+Fold: 3, Accuracy: 0.2873218304576144
+
+Fold: 4, Accuracy: 0.29425
+Total time to train (in seconds): 25.48
+Total time to test (in seconds): 1.961
+Average time to train (in seconds): 5.096
+Average time to test (in seconds): 0.3922
+Mean accuracy: 0.289057551887972
+
+Using 12400 features in collection
+Calculating accuracy using cross-validation...
+Number of folds: 5
+
+
+Fold: 0, Accuracy: 0.4379793264421474
+
+Fold: 1, Accuracy: 0.39756626104350723
+
+Fold: 2, Accuracy: 0.3893982330388398
+
+Fold: 3, Accuracy: 0.39139856642773796
+
+Fold: 4, Accuracy: 0.43357226204367394
+Total time to train (in seconds): 65.964
+Total time to test (in seconds): 3.499
+Average time to train (in seconds): 13.1928
+Average time to test (in seconds): 0.6998
+Mean accuracy: 0.4099829297991812
+
+Using 18600 features in collection
+Calculating accuracy using cross-validation...
+Number of folds: 5
+
+
+Fold: 0, Accuracy: 0.4988747186796699
+
+Fold: 1, Accuracy: 0.5031257814453614
+
+Fold: 2, Accuracy: 0.49318664833104137
+
+Fold: 3, Accuracy: 0.4951237809452363
+
+Fold: 4, Accuracy: 0.5038129766220778
+Total time to train (in seconds): 123.813
+Total time to test (in seconds): 4.637
+Average time to train (in seconds): 24.7626
+Average time to test (in seconds): 0.9274
+Mean accuracy: 0.49882478120467744
+
+Using 24800 features in collection
+Calculating accuracy using cross-validation...
+Number of folds: 5
+
+
+Fold: 0, Accuracy: 0.5726145229045809
+
+Fold: 1, Accuracy: 0.5507101420284057
+
+Fold: 2, Accuracy: 0.5510102020404081
+
+Fold: 3, Accuracy: 0.5649129825965193
+
+Fold: 4, Accuracy: 0.5633126625325064
+Total time to train (in seconds): 246.172
+Total time to test (in seconds): 6.925
+Average time to train (in seconds): 49.2344
+Average time to test (in seconds): 1.385
+Mean accuracy: 0.5605121024204841
+
+
+Process finished with exit code 0

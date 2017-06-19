@@ -1,5 +1,6 @@
 package edu.byu.cstaheli.cs453.classification.mnb.classification;
 
+import edu.byu.cstaheli.cs453.classification.Driver;
 import edu.byu.cstaheli.cs453.classification.Utilities;
 import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.document.DocumentCollection;
@@ -43,15 +44,31 @@ class ClassifierTest
     @Test
     void calculateInformationGain()
     {
-        Classifier classifier = new Classifier();
-        List<Document> documents = Utilities.getSlidesDocumentCollection().getDocuments();
-        Set<String> features = classifier.featureSelection(documents, 3);
-        assertEquals(3, features.size());
+
     }
 
     @Test
     void featureSelection()
     {
+        Classifier classifier = new Classifier();
+        List<Document> documents;
+        Set<String> features;
+        String basePath;
+//        documents = Utilities.getSlidesDocumentCollection().getDocuments();
+//        features = classifier.featureSelection(documents, 3);
+//        assertEquals(3, features.size());
+//        assertTrue(features.contains("dinner"));
+//        assertFalse(features.contains("the"));
+
+//        basePath = "src/test/resources/20NG";
+//        documents = new Driver().readInCorpus(basePath);
+//        features = classifier.featureSelection(documents, 1600);
+//        assertEquals(1600, features.size());
+
+        basePath = "src/main/resources/20NG";
+        documents = new Driver().readInCorpus(basePath);
+        features = classifier.featureSelection(documents, 1600);
+        assertEquals(1600, features.size());
     }
 
     @Test
@@ -91,15 +108,4 @@ class ClassifierTest
         result = Math.pow(31, 11);
         assertEquals(25408476896404831d, result);
     }
-
-    @Test
-    void setWordProbabilities()
-    {
-    }
-
-    @Test
-    void setClassProbabilities()
-    {
-    }
-
 }

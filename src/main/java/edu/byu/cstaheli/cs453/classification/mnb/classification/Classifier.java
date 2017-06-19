@@ -4,6 +4,7 @@ import edu.byu.cstaheli.cs453.classification.document.Document;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MnbDocument;
 import edu.byu.cstaheli.cs453.classification.mnb.document.MultinomialSet;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ClassProbabilities;
+import edu.byu.cstaheli.cs453.classification.mnb.probability.MultinomialNaiveBayesProbability;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.ProbabilityTrainer;
 import edu.byu.cstaheli.cs453.classification.mnb.probability.WordProbabilities;
 
@@ -114,47 +115,49 @@ public class Classifier implements MultinomialNaiveBayesFeatureSelector, Multino
         }
         else
         {
-            Map<String, Double> informationGainMap = new HashMap<>();
-            MultinomialSet set = new MultinomialSet(allWordsInDocuments);
-            set.add(trainingSet);
+            Map<String, Double> informationGainMap = new HashMap<>(allWordsInDocuments.size());
+            FeatureSelectionDocumentWrapper wrapper = new FeatureSelectionDocumentWrapper(trainingSet);
             for (String word : allWordsInDocuments)
             {
-                double informationGain = calculateInformationGain(word, set);
+                double informationGain = calculateInformationGain(word, wrapper);
                 informationGainMap.put(word, informationGain);
             }
             return getTopMKeysSortedByValue(informationGainMap, m);
         }
     }
 
-    double calculateInformationGain(String word, MultinomialSet documents)
+    double calculateInformationGain(String word, FeatureSelectionDocumentWrapper wrapper)
     {
-        ProbabilityTrainer trainer = new ProbabilityTrainer();
-        ClassProbabilities classProbabilities = trainer.computeClassProbabilities(documents);
-        WordProbabilities wordProbabilities = trainer.computeWordProbabilities(documents);
-
         double classProbabilitiesSum = 0;
         double wordProbabilitiesSum = 0;
         double notWordProbabilitiesSum = 0;
 
-        for (String outputClass : documents.getClasses())
+        int numberOfDocuments = wrapper.getNumberOfDocuments();
+        int numberOfDocumentsWithWord = wrapper.getNumberOfDocumentsWithWord(word);
+        int numberOfDocumentsWithoutWord = wrapper.getNumberOfDocumentsWithoutWord(word);
+        double pOfW = (double) numberOfDocumentsWithWord / (double) numberOfDocuments;
+        double pOfNotW = (double) numberOfDocumentsWithoutWord / (double) numberOfDocuments;
+        for (String outputClass : wrapper.getClasses())
         {
-            classProbabilitiesSum += calcPLogP(classProbabilities.getProbability(outputClass));
-            double probabilityOfClassGivenWord = wordProbabilities.getProbability(word, outputClass);
-            wordProbabilitiesSum += calcPLogP(probabilityOfClassGivenWord);
-            notWordProbabilitiesSum += calcPLogP(1 - probabilityOfClassGivenWord);
+            int numberOfDocumentsLabeledClass = wrapper.getNumberOfDocumentsLabeledClass(outputClass);
+            double pOfC = (double) numberOfDocumentsLabeledClass / (double) numberOfDocuments;
+            int numberOfDocumentsWithWordLabeledAsClass = wrapper.getNumberOfDocumentsWithWordLabeledAsClass(word, outputClass);
+            int numberOfDocumentsWithoutWordLabeledAsClass = wrapper.getNumberOfDocumentsWithoutWordLabeledAsClass(word, outputClass);
+            double pOfCGivenW = (double) numberOfDocumentsWithWordLabeledAsClass / (double) numberOfDocumentsWithWord;
+            double pOfCGivenNotW = (double) numberOfDocumentsWithoutWordLabeledAsClass / (double) numberOfDocumentsWithWord;
+
+            classProbabilitiesSum += calcPLogP(pOfC);
+            wordProbabilitiesSum += calcPLogP(pOfCGivenW);
+            notWordProbabilitiesSum += calcPLogP(pOfCGivenNotW);
         }
-        double numberOfDocumentsWithWord = documents.getNumberOfDocumentsWithWord(word);
-        double numberOfDocuments = documents.getNumberOfDocuments();
-        double probabilityOfWord = numberOfDocumentsWithWord / numberOfDocuments;
-        double probabilityOfNotWord = 1 - probabilityOfWord;
-        return -1 * classProbabilitiesSum + (probabilityOfWord * wordProbabilitiesSum) + (probabilityOfNotWord * notWordProbabilitiesSum);
+        return -1 * classProbabilitiesSum + (pOfW * wordProbabilitiesSum) + (pOfNotW * notWordProbabilitiesSum);
     }
 
     private Set<String> getAllWordsInDocuments(List<Document> documents)
     {
         return documents
                 .stream()
-                .map(Document::getWords)
+                .map(Document::getDistinctWords)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
     }
@@ -238,6 +241,7 @@ public class Classifier implements MultinomialNaiveBayesFeatureSelector, Multino
                 int termFrequency = mnbDocument.getTermFrequency(word);
                 double probability = wordProbabilities.getProbability(word, outputClass);
                 product *= pow(probability, termFrequency);
+//                product *= Math.log(probability) * termFrequency;
             }
             documentInClassProbabilities.put(outputClass, product);
         }

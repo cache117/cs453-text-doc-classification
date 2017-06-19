@@ -55,7 +55,7 @@ public class Driver
     }
 
     /**
-     * The entry point for the driver
+     * The entry point for the driver.
      *
      * @param args args[0] should contain the directory that the 20NG dataset is in.
      */
@@ -64,6 +64,11 @@ public class Driver
         Driver driver = new Driver();
         List<Document> documents = driver.readInCorpus(args[0]);
         driver.train(documents, -1);
+
+        driver.train(documents, 6200);
+        driver.train(documents, 12400);
+        driver.train(documents, 18600);
+        driver.train(documents, 24800);
 
     }
 
